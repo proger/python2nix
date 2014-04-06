@@ -14,7 +14,7 @@ PACKAGE = """\
       md5 = "{md5}";
     }};
 
-    meta = {{
+    meta = with stdenv.lib; {{
       description = "{description}";
       homepage = {homepage};
       license = {license};
