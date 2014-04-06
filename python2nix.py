@@ -4,7 +4,7 @@ import requests
 import pip_deps
 
 PACKAGE = """\
-  {attr} = pythonPackages.buildPythonPackage rec {{
+  {name_only} = pythonPackages.buildPythonPackage rec {{
     name = "{name}";
 
     propagatedBuildInputs = [ {inputs} ];
@@ -38,11 +38,6 @@ def guess_license(info):
         return 'unknown'
     return license
 
-def nix_mangle_attr(name):
-    name_parts = name.replace('.', '_').split('-')
-    attr_parts = name_parts[0:1] + [n.capitalize() for n in name_parts[1:]]
-    return ''.join(attr_parts)
-
 _pip_dependency_cache = {}
 
 def pip_dump_dependencies(name): # memoized version
@@ -65,7 +60,7 @@ def build_inputs(name):
             vsn = "_" + vsn
         return vsn or ''
 
-    return [nix_mangle_attr(name + vsn(name)) for name, specs in reqs[name]]
+    return [name + vsn(name) for name, specs in reqs[name]]
 
 def package_to_info(package):
     url = "https://pypi.python.org/pypi/{}/json".format(package)
@@ -77,7 +72,6 @@ def info_to_expr(info):
     version = info['info']['version']
 
     name = name_only + "-" + version
-    attr = nix_mangle_attr(name_only + "_" + version)
     inputs = ' '.join(build_inputs(name_only))
 
     url = info['urls'][0]['url']
