@@ -7,7 +7,7 @@ PACKAGE = """\
   {name_only} = pythonPackages.buildPythonPackage rec {{
     name = "{name}";
 
-    propagatedBuildInputs = [ {inputs} ];
+    propagatedBuildInputs = with pythonPackages; [ {inputs} ];
 
     src = fetchurl {{
       url = "{url}";
