@@ -74,8 +74,16 @@ def info_to_expr(info):
     name = name_only + "-" + version
     inputs = ' '.join(build_inputs(name_only))
 
-    url = info['urls'][0]['url']
-    md5 = info['urls'][0]['md5_digest']
+    url = None
+    md5 = None
+    for url_item in info['urls']:
+        url_ext = url_item['url']
+        if url_ext.endswith('zip') or url_ext.endswith('tar.gz'):
+            url = url_item['url']
+            md5 = url_item['md5_digest']
+            break
+    if url is None:
+      raise Exception('No download url found :-(')
 
     description = info['info']['description'].split('\n')[0]
     homepage = info['info']['home_page']
