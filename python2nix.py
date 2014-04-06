@@ -85,7 +85,7 @@ def info_to_expr(info):
     if url is None:
       raise Exception('No download url found :-(')
 
-    description = info['info']['description'].split('\n')[0]
+    description = info['info']['description'].split('\n')[0].rstrip('.')
     homepage = info['info']['home_page']
     license = guess_license(info)
 
