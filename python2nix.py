@@ -1,21 +1,20 @@
 #!/usr/bin/env python2.7
 import sys
-import os
 import requests
 import pip_deps
 
 PACKAGE = """\
-  {attr} = pythonPackages.buildPythonPackage rec {{
+  {name_only} = pythonPackages.buildPythonPackage rec {{
     name = "{name}";
 
-    propagatedBuildInputs = [ {inputs} ];
+    propagatedBuildInputs = with pythonPackages; [ {inputs} ];
 
     src = fetchurl {{
       url = "{url}";
       md5 = "{md5}";
     }};
 
-    meta = {{
+    meta = with stdenv.lib; {{
       description = "{description}";
       homepage = {homepage};
       license = {license};
@@ -39,11 +38,6 @@ def guess_license(info):
         return 'unknown'
     return license
 
-def nix_mangle_attr(name):
-    name_parts = name.replace('.', '_').split('-')
-    attr_parts = name_parts[0:1] + [n.capitalize() for n in name_parts[1:]]
-    return ''.join(attr_parts)
-
 _pip_dependency_cache = {}
 
 def pip_dump_dependencies(name): # memoized version
@@ -66,7 +60,7 @@ def build_inputs(name):
             vsn = "_" + vsn
         return vsn or ''
 
-    return [nix_mangle_attr(name + vsn(name)) for name, specs in reqs[name]]
+    return [name + vsn(name) for name, specs in reqs[name]]
 
 def package_to_info(package):
     url = "https://pypi.python.org/pypi/{}/json".format(package)
@@ -78,13 +72,20 @@ def info_to_expr(info):
     version = info['info']['version']
 
     name = name_only + "-" + version
-    attr = nix_mangle_attr(name_only + "_" + version)
     inputs = ' '.join(build_inputs(name_only))
 
-    url = info['urls'][0]['url']
-    md5 = info['urls'][0]['md5_digest']
+    url = None
+    md5 = None
+    for url_item in info['urls']:
+        url_ext = url_item['url']
+        if url_ext.endswith('zip') or url_ext.endswith('tar.gz'):
+            url = url_item['url']
+            md5 = url_item['md5_digest']
+            break
+    if url is None:
+      raise Exception('No download url found :-(')
 
-    description = info['info']['description'].split('\n')[0]
+    description = info['info']['description'].split('\n')[0].rstrip('.')
     homepage = info['info']['home_page']
     license = guess_license(info)
 
