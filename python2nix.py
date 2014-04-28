@@ -66,7 +66,11 @@ def build_inputs(name):
 def package_to_info(package):
     url = "https://pypi.python.org/pypi/{}/json".format(package)
     r = requests.get(url)
-    return r.json()
+    try:
+        return r.json()
+    except Exception as e:
+        sys.stderr.write('package_to_info failed: {}\n'.format(r))
+        raise e
 
 def info_to_expr(info):
     name_only = info['info']['name']
