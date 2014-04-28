@@ -51,17 +51,20 @@ def pip_dump_dependencies(name): # memoized version
 def build_inputs(name):
     reqs, vsns = pip_dump_dependencies(name)
 
-    def vsn(name):
-        vsn = vsns.get(name)
-        if not vsn:
+    def get_workaround(adict, name):
+        v = adict.get(name)
+        if not v:
             name = name.replace('_', '-') # pypi workaround ?
-            vsn = vsns.get(name)
+            v = adict.get(name)
+        return v
 
+    def vsn(name):
+        vsn = get_workaround(vsns, name)
         if vsn:
             vsn = "_" + vsn
         return vsn or ''
 
-    return [name + vsn(name) for name, specs in reqs[name]]
+    return [name + vsn(name) for name, specs in get_workaround(reqs, name)]
 
 def package_to_info(package):
     url = "https://pypi.python.org/pypi/{}/json".format(package)
