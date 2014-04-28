@@ -26,7 +26,8 @@ PACKAGE = """\
 LICENSE_MAP = {
     'http://www.opensource.org/licenses/mit-license.php': 'licenses.mit',
     'MIT': 'licenses.mit',
-    'PSF': 'licenses.psfl'
+    'PSF': 'licenses.psfl',
+    'BSD': 'licenses.bsd'
 }
 
 _missing = object()
