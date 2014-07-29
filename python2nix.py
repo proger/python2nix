@@ -25,6 +25,7 @@ PACKAGE = """\
 
 LICENSE_MAP = {
     'http://www.opensource.org/licenses/mit-license.php': 'licenses.mit',
+    'http://www.apache.org/licenses/LICENSE-2.0': 'licenses.asl20',
     'MIT': 'licenses.mit',
     'PSF': 'licenses.psfl',
     'BSD': 'licenses.bsd'
