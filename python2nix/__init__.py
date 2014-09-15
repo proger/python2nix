@@ -1,7 +1,8 @@
 #!/usr/bin/env python2.7
 import sys
 import requests
-import pip_deps
+
+from python2nix import pip_deps
 
 PACKAGE = """\
   {name_only} = pythonPackages.buildPythonPackage rec {{
@@ -101,5 +102,9 @@ def info_to_expr(info):
     return PACKAGE.format(**locals())
 
 
-if __name__ == '__main__':
+def main():
     print info_to_expr(package_to_info(sys.argv[1]))
+
+
+if __name__ == '__main__':
+    main()
