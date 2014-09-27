@@ -78,7 +78,7 @@ def package_to_info(package):
         raise e
 
 def info_to_expr(info):
-    name_only = info['info']['name']
+    name_only = info['info']['name'].lower()
     version = info['info']['version']
 
     name = name_only + "-" + version
