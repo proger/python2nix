@@ -8,12 +8,12 @@ PACKAGE = """\
   {name_only} = pythonPackages.buildPythonPackage rec {{
     name = "{name}";
 
-    propagatedBuildInputs = with pythonPackages; [ {inputs} ];
-
     src = fetchurl {{
       url = "{url}";
       md5 = "{md5}";
     }};
+
+    propagatedBuildInputs = with pythonPackages; [ {inputs} ];
 
     meta = with stdenv.lib; {{
       description = "{description}";
