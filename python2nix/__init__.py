@@ -66,7 +66,7 @@ def build_inputs(name):
             vsn = "_" + vsn
         return vsn or ''
 
-    return [name + vsn(name) for name, specs in get_workaround(reqs, name)]
+    return [name.lower() + vsn(name) for name, specs in get_workaround(reqs, name)]
 
 def package_to_info(package):
     url = "https://pypi.python.org/pypi/{}/json".format(package)
