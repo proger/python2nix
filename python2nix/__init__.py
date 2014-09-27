@@ -63,7 +63,7 @@ def build_inputs(name):
     def vsn(name):
         vsn = get_workaround(vsns, name)
         if vsn:
-            vsn = "-" + vsn
+            vsn = "-" + vsn.replace('.', '-')
         return vsn or ''
 
     return [name.lower() + vsn(name) for name, specs in get_workaround(reqs, name)]
