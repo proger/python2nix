@@ -103,7 +103,10 @@ def info_to_expr(info):
 
 
 def main():
-    print info_to_expr(package_to_info(sys.argv[1]))
+    if len(sys.argv) < 2 or "--help" in sys.argv:
+        print "Usage: python2nix <PACKAGE_NAME>"
+    else:
+        print info_to_expr(package_to_info(sys.argv[1]))
 
 
 if __name__ == '__main__':
