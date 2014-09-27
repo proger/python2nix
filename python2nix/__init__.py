@@ -8,12 +8,12 @@ PACKAGE = """\
   {name_only} = pythonPackages.buildPythonPackage rec {{
     name = "{name}";
 
-    propagatedBuildInputs = with pythonPackages; [ {inputs} ];
-
     src = fetchurl {{
       url = "{url}";
       md5 = "{md5}";
     }};
+
+    propagatedBuildInputs = with pythonPackages; [ {inputs} ];
 
     meta = with stdenv.lib; {{
       description = "{description}";
@@ -63,10 +63,10 @@ def build_inputs(name):
     def vsn(name):
         vsn = get_workaround(vsns, name)
         if vsn:
-            vsn = "_" + vsn
+            vsn = "-" + vsn.replace('.', '-')
         return vsn or ''
 
-    return [name + vsn(name) for name, specs in get_workaround(reqs, name)]
+    return [name.lower() + vsn(name) for name, specs in get_workaround(reqs, name)]
 
 def package_to_info(package):
     url = "https://pypi.python.org/pypi/{}/json".format(package)
@@ -78,7 +78,7 @@ def package_to_info(package):
         raise e
 
 def info_to_expr(info):
-    name_only = info['info']['name']
+    name_only = info['info']['name'].lower()
     version = info['info']['version']
 
     name = name_only + "-" + version
@@ -103,7 +103,10 @@ def info_to_expr(info):
 
 
 def main():
-    print info_to_expr(package_to_info(sys.argv[1]))
+    if len(sys.argv) < 2 or "--help" in sys.argv:
+        print "Usage: python2nix <PACKAGE_NAME>"
+    else:
+        print info_to_expr(package_to_info(sys.argv[1]))
 
 
 if __name__ == '__main__':
