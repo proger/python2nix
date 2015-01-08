@@ -4,7 +4,7 @@ Helper to build python [nix packages](https://github.com/NixOS/nixpkgs) that gen
 
 Quick start:
 
-* `./python2nix.py thumbor`
+* `python -mpython2nix thumbor`
 * double-check dependencies in nixpkgs
 * re-run for missing dependencies
 * copy-paste
@@ -15,4 +15,5 @@ Don't consider these scripts to be stable.
 
 ### Known issues
 
-Apparently pip doesn't handle `tests_require`.
+* Needs pip==1.5.6 to work.
+* Apparently doesn't handle `tests_require`.
