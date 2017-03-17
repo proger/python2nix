@@ -17,3 +17,7 @@ Put a PyPI package name in, get a Nix expression out to add to [nixpkgs](https:/
 
 * @proger
 * @phunehehe
+
+### You may also like
+
+* @tailhook's [reqtxt2nix](https://github.com/tailhook/reqtxt2nix) which lets you produce build environments (put your `requirements.txt` in, get a `myEnvFun` out)
