@@ -1,19 +1,19 @@
 ## python2nix
 
-Helper to build python [nix packages](https://github.com/NixOS/nixpkgs) that generates nix-expressions.
+Put a PyPI package name in, get a Nix expression out to add to [nixpkgs](https://github.com/NixOS/nixpkgs) or your private build scripts.
 
-Quick start:
+### Quick start
 
-* `python -mpython2nix thumbor`
-* double-check dependencies in nixpkgs
-* re-run for missing dependencies
-* copy-paste
-* ???
-* PROFIT!
-
-Don't consider these scripts to be stable.
+* Choose your favorite package from PyPI (like https://pypi.python.org/pypi/thumbor)
+* Feed its name to python2nix: `python -mpython2nix thumbor`
+* Use code from stdout as the base for Nix expression (it may need manual tweaks).
 
 ### Known issues
 
-* Needs pip==1.5.6 to work.
-* Apparently doesn't handle `tests_require`.
+* Tested only with pip==1.5.6.
+* May ignore lots of the metadata (e.g. doesn't handle `tests_require`).
+
+### Contributors
+
+* @proger
+* @phunehehe
