@@ -15,10 +15,10 @@ Put a PyPI package name in, get a Nix expression out to add to [nixpkgs](https:/
 
 ### Contributors
 
-* @bjornfor
-* @domenkozar
-* @phunehehe
-* @proger
+* [@bjornfor](https://github.com/bjornfor)
+* [@domenkozar](https://github.com/domenkozar)
+* [@phunehehe](https://github.com/phunehehe)
+* [@proger](https://github.com/proger)
 
 ### You may also like
 
