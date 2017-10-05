@@ -8,6 +8,14 @@ Put a PyPI package name in, get a Nix expression out to add to [nixpkgs](https:/
 * Feed its name to python2nix: `python -mpython2nix thumbor`
 * Use code from stdout as the base for Nix expression (it may need manual tweaks).
 
+```
+nix-shell -p pythonPackages.virtualenv
+virtualenv env
+env/bin/pip install -r pip.requirements
+mkdir -p env/build
+env/bin/python -mpython2nix thumbor | tee thumbor.nix
+```
+
 ### Known issues
 
 * Tested only with pip==1.5.6.
