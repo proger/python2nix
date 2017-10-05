@@ -18,6 +18,7 @@ env/bin/python -mpython2nix thumbor | tee thumbor.nix
 
 ### Known issues
 
+* You will need to convert `md5` to `sha256` manually.
 * Tested only with pip==1.5.6.
 * May ignore lots of the metadata (e.g. doesn't handle `tests_require`).
 
