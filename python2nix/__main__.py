@@ -34,6 +34,7 @@ LICENSE_MAP = {
     'BSD or Apache License, Version 2.0': 'licenses.bsd',
     'BSD': 'licenses.bsd',
     'GPL2': 'licenses.gpl2',
+    'MIT licence': 'licenses.mit',
     'MIT License': 'licenses.mit',
     'MIT license': 'licenses.mit',
     'MIT': 'licenses.mit',
