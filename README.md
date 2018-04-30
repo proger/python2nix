@@ -31,4 +31,5 @@ env/bin/python -mpython2nix thumbor | tee thumbor.nix
 
 ### You may also like
 
+* [pypi2nix](https://github.com/garbas/pypi2nix) -- seems to just work these days
 * @tailhook's [reqtxt2nix](https://github.com/tailhook/reqtxt2nix) which lets you produce build environments (put your `requirements.txt` in, get a `myEnvFun` out)
